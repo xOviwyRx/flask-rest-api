@@ -57,7 +57,7 @@ curl --header "Content-Type: application/json" --request POST --data '{"question
 ```bash
 docker-compose exec db psql flask_db -U myuser
 ```
-(flask_db - название БД, myuser - имя пользователя СУБД)
+flask_db - название БД, myuser - имя пользователя СУБД
 
 #### Показать список всех записей таблицы question:
 ```bash
@@ -67,5 +67,10 @@ SELECT * FROM question;
 #### Вывести количество всех записей в таблице question:
 ```bash
 SELECT COUNT(*) FROM question;
+```
+
+#### Удалить все записи из таблицы question:
+```bash
+TRUNCATE TABLE question;
 ```
 
