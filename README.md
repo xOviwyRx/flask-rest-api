@@ -1,75 +1,75 @@
-# Веб-сервис на Flask с использованием REST API
+# Flask web service with REST API
+Simple web service working with this public API: https://jservice.io/api/random?count=1. 
+Service is accepted a POST request with amount of questions to getting. 
+All received questions are stored in the PostgreSQL DB. 
+Response on this request will contain the last but one question. Service works inside docker containers.
+## Utilizing Docker
 
-## Использование Docker
+### Project setup
 
-### Настройка проекта
-
-Создайте `.env` файл в корне репозитория:
+Create `.env` file in the repository root:
 
 ```bash
 cp .env.dev .env
 ```
 
-Внесите при необходимости корректировки в переменные окружения.
+Make adjustments to the environment variables as needed.
 
+### Building of images and startup of containers
 
-### Сборка образов и запуск контейнеров
-
-В корне репозитория выполните команду:
+Run command in the repository root:
 
 ```bash
 docker-compose up
 ```
 
-При первом запуске данный процесс может занять несколько минут.
+This process may take several minutes first time.
 
-### Остановка контейнеров
+### Stopping of containers
 
-Для остановки контейнеров выполните команду:
+To stop containers ran command:
 
 ```bash
 docker-compose stop
 ```
 
-### Инициализация проекта
+### Project initialization
 
-Команды выполняются внутри контейнера приложения:
+The commands are executed inside the application container:
 
 ```bash
 docker-compose exec app bash
 ```
 
-#### При первом запуске контейнеров необходимо применить миграции:
+#### Applying migrations (at first running):
 
 ```bash
 flask db upgrade
 ```
 
-
-#### Пример запроса к POST API сервиса:
+#### Request example to the service POST API:
 ```bash
 curl --header "Content-Type: application/json" --request POST --data '{"questions_num":3}'  http://localhost:5000
 ```
-Примечание: число questions_num не должно превышать 100
+Note: number questions_num must be less than 100
 
-
-### Подключение к СУБД:
+### Connecting to DB
 ```bash
 docker-compose exec db psql flask_db -U myuser
 ```
-flask_db - название БД, myuser - имя пользователя СУБД
+flask_db - DB name, myuser - DB user name
 
-#### Показать список всех записей таблицы question:
+#### Show list all question table rows:
 ```bash
 SELECT * FROM question;
 ```
 
-#### Вывести количество всех записей в таблице question:
+#### Show count all question table rows:
 ```bash
 SELECT COUNT(*) FROM question;
 ```
 
-#### Удалить все записи из таблицы question:
+#### Delete all rows from question table:
 ```bash
 TRUNCATE TABLE question;
 ```
