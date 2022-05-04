@@ -134,5 +134,5 @@ dmypy.json
 /static
 /app/static
 
-/api
+/flask-quiz
 /pgdata
